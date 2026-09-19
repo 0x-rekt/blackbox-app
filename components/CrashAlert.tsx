@@ -8,10 +8,11 @@ import {
     Vibration,
     View,
 } from "react-native";
+import { api } from "../lib/api";
 
 interface Props {
   visible: boolean;
-  sessionId: string;
+  reportId: string;
   onConfirmed: () => void;
   onDismissed: () => void;
 }
@@ -20,7 +21,7 @@ const COUNTDOWN = 20;
 
 export default function CrashAlert({
   visible,
-  sessionId,
+  reportId,
   onConfirmed,
   onDismissed,
 }: Props) {
@@ -92,6 +93,7 @@ export default function CrashAlert({
     clearInterval(timerRef.current!);
     Vibration.cancel();
     pulseAnim.stopAnimation();
+    api.post(`/crash/reports/${reportId}/false-alarm`).catch(() => {});
     onDismissed();
   };
 
@@ -118,7 +120,7 @@ export default function CrashAlert({
         </Text>
         <Text className="text-gray-400 text-center text-base mb-8 leading-6">
           A sudden impact was detected. Were you in an accident?
-          {"\n"}Emergency services will be alerted if there's no response.
+          {"\n"}Emergency services will be alerted if there&apos;s no response.
         </Text>
 
         {/* Countdown bar */}
@@ -150,7 +152,7 @@ export default function CrashAlert({
           activeOpacity={0.8}
         >
           <Text className="text-gray-300 font-semibold text-lg">
-            ✅ No, I'm fine — cancel
+            ✅ No, I&apos;m fine — cancel
           </Text>
         </TouchableOpacity>
       </View>
