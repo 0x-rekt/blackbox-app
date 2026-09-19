@@ -39,10 +39,10 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="sessions"
+        name="reports"
         options={{
-          title: "Sessions",
-          tabBarLabel: "Sessions",
+          title: "Reports",
+          tabBarLabel: "Reports",
           tabBarIcon: ({ color }) => (
             <Text style={{ color, fontSize: 20 }}>🗂️</Text>
           ),
